@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --teal:#009daa;--td:#007a85;--tl:#e0f7fa;
@@ -526,9 +526,9 @@ CREATE POLICY "allow_all" ON desgloses FOR ALL USING (true) WITH CHECK (true);</
 
 <script>
 
-const SUPA_URL='https://bbvkbvaqwnjcikavepqy.supabase.co';
-const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJidmtidmFxd25qY2lrYXZlcHF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNTc0MjksImV4cCI6MjA5NTczMzQyOX0.YU9q2bZrmFe7xhat-Y_PPu-QCcWkmroakl1NKkYE4KU';
-const SB=supabase.createClient(SUPA_URL,SUPA_KEY,{global:{headers:{"x-my-custom-header":"ocupsalud"}},auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+const SUPA_URL='https://zcmnieaorautwuvfvuni.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjbW5pZWFvcmF1dHd1dmZ2dW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3Nzg0NTMsImV4cCI6MjA5NjM1NDQ1M30._O3h3Mpyeba6f3fVWs_qW3BC1OydKz_-YIrzf59uVz4';
+const SB=supabase.createClient(SUPA_URL,SUPA_KEY);
 let supaOk=false;
 function setSS(type,msg){const d=document.getElementById('sd'),t=document.getElementById('st');if(d)d.className='sync-dot '+(type==='ok'?'ok':type==='syncing'?'syncing':'err');if(t)t.textContent=msg;supaOk=type==='ok';}
 async function testSupa(){setSS('syncing','Conectando…');try{const{error}=await SB.from('movimientos_caja').select('id').limit(1);if(error&&(error.code==='42P01'||error.message.includes('does not exist'))){setSS('err','⚠️ Tablas no creadas');document.getElementById('setup-modal').classList.add('open');}else if(error){setSS('err','❌ '+error.message.slice(0,35));}else{setSS('ok','☁️ Conectado');// Cargar datos del año actual desde Supabase y refrescar todo
