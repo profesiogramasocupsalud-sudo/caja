@@ -532,7 +532,7 @@ const SB=supabase.createClient(SUPA_URL,SUPA_KEY);
 let supaOk=false;
 function setSS(type,msg){const d=document.getElementById('sd'),t=document.getElementById('st');if(d)d.className='sync-dot '+(type==='ok'?'ok':type==='syncing'?'syncing':'err');if(t)t.textContent=msg;supaOk=type==='ok';}
 async function testSupa(){setSS('syncing','Conectando…');try{const{error}=await SB.from('movimientos_caja').select('id').limit(1);if(error&&(error.code==='42P01'||error.message.includes('does not exist'))){setSS('err','⚠️ Tablas no creadas');document.getElementById('setup-modal').classList.add('open');}else if(error){setSS('err','❌ '+error.message.slice(0,35));}else{setSS('ok','☁️ Conectado');// Cargar datos del año actual desde Supabase y refrescar todo
-await loadYearFromSupa(curYear);await loadDesglosesSupa();loadPrestamosSupa();loadArqHist();refreshAll();T('☁️ Datos cargados desde Supabase');}}catch(e){setSS('err','❌ Sin internet');}}
+await loadYearFromSupa(curYear);await loadDesglosesSupa();loadPrestamosSupa();loadArqHist();refreshAll();renderDes();T('☁️ Datos cargados desde Supabase');}}catch(e){setSS('err','❌ Sin internet');}}
 function copySql(){navigator.clipboard.writeText(document.getElementById('sql-box').value).then(()=>T('📋 SQL copiado')).catch(()=>T('Selecciona el texto',true));}
 function closeSetup(){document.getElementById('setup-modal').classList.remove('open');testSupa();}
 
